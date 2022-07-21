@@ -1,0 +1,61 @@
+.loader-wrapper {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    z-index: 9999;
+}
+
+.spinner-text {
+    font-size: 1.5rem;
+    font-weight: bolder;
+    position: absolute;
+    animation: text-opacity 3s ease-in-out infinite;
+}
+
+.spinner {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    border: 8px solid transparent;
+    position: absolute;
+}
+
+.spinner-red {
+    border-top: 8px solid lightcoral;
+    animation: spinner 1.5s ease-in-out infinite;
+}
+
+.spinner-blue {
+    border-top: 8px solid lightblue;
+    animation: spinner 2s ease-in-out infinite;
+}
+
+.spinner-green {
+    border-top: 8px solid lightgreen;
+    animation: spinner 3s ease-in-out infinite;
+}
+
+@keyframes spinner {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes text-opacity {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 1;
+    }
+}
