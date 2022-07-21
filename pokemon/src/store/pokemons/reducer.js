@@ -5,7 +5,7 @@ const initialState = [];
 export const pokemonReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case FETCH_POKEMONS:
-			return state;
+			return action.payload;
 		default:
 			return state;
 	}

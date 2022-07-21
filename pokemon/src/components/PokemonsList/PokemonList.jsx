@@ -8,9 +8,11 @@ import SelectBox from '../common/SelectBox/SelectBox';
 import Input from '../common/Input/Input';
 
 import { fetchPokemonTypesAPI } from '../../store/pokemonTypes/thunk';
+import { fetchPokemonsByTypesAPI } from '../../store/pokemons/thunk';
 
 const PokemonsList = () => {
 	const dispatch = useDispatch();
+	const pokemons = useSelector((state) => state.pokemons);
 	const pokemonTypes = useSelector((state) => state.pokemonTypes);
 	const isLoading = useSelector((state) => state.isLoading);
 	const [showAllPokemon, setShowAllPokemon] = useState(false);
@@ -28,7 +30,7 @@ const PokemonsList = () => {
 	};
 
 	const handleSelectBox = (event) => {
-		console.log(event.target.value);
+		dispatch(fetchPokemonsByTypesAPI(event.target.value));
 	};
 
 	return (
@@ -56,7 +58,15 @@ const PokemonsList = () => {
 					/>
 					<p>Result:</p>
 					<section>
-						<PokemonListCard />
+						{pokemons &&
+							pokemons.map((pokemon) => {
+								return (
+									<PokemonListCard
+										pokemonName={pokemon.pokemon.name}
+										key={pokemon.pokemon.url}
+									/>
+								);
+							})}
 					</section>
 				</main>
 			)}
