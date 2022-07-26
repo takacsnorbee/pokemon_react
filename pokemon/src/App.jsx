@@ -10,7 +10,7 @@ function App() {
 				<Route path='*' element={<Navigate to='/' />} />
 				<Route path='/' element={<PokemonsList />} />
 				<Route path='/pokemon' element={<PokemonsList />} />
-				<Route path='/pokemon/:pokemonId' element={<PokemonDetails />} />
+				<Route path='/pokemon/:pokemonName' element={<PokemonDetails />} />
 			</Routes>
 		</BrowserRouter>
 	);

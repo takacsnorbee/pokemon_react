@@ -2,8 +2,12 @@ import './SelectBox.css';
 
 const SelectBox = ({ selectBoxClass, optionsData, handleEvent }) => {
 	return (
-		<select className={selectBoxClass} onChange={handleEvent}>
-			<option value='' disabled>
+		<select
+			className={selectBoxClass}
+			onChange={handleEvent}
+			defaultValue='default'
+		>
+			<option value='default' disabled hidden>
 				Choose pokemon type
 			</option>
 			{optionsData.map((pokemonType) => {
