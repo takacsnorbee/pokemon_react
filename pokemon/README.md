@@ -1,5 +1,5 @@
 ## live demo: 
-pokemon-react-tn.netlify.app
+https://pokemon-react-tn.netlify.app
 
 # Getting Started with Create React App
 
