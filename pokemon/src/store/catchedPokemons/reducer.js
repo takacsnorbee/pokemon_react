@@ -13,9 +13,7 @@ const catchedPokemonsReducer = (state = initialState, action) => {
 		case ADD_TO_CATCHED:
 			return [...state, action.payload];
 		case REMOVE_FROM_CATCHED:
-			return (state) => {
-				state.filter((pokemon) => pokemon !== action.payload);
-			};
+			return state.filter((pokemon) => pokemon !== action.payload);
 		default:
 			return state;
 	}

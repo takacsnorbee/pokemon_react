@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Button from '../common/Button/Button';
 import PokemonListCard from '../PokemonListCard/PokemonListCard';
 import Loader from '../Loader/Loader';
@@ -23,6 +24,7 @@ const PokemonsList = () => {
 	const catchedPokemons = useSelector((state) => state.catchedPokemons);
 	const [showAllPokemon, setShowAllPokemon] = useState(true);
 	const [searchPokemonByName, setSearchPokemonByName] = useState('');
+	const [showResult, setshowResult] = useState(false);
 
 	useEffect(() => {
 		dispatch(fetchPokemonTypesAPI());
@@ -39,6 +41,7 @@ const PokemonsList = () => {
 
 	const handleSelectBox = (event) => {
 		dispatch(fetchPokemonsByTypesAPI(event.target.value));
+		setshowResult(true);
 	};
 
 	const handleClickOnPokemonListCard = (pokemonName) => {
@@ -69,53 +72,71 @@ const PokemonsList = () => {
 							btnClass={'toggle-list-btn'}
 							handleEvent={handleToggleListBtn}
 						/>
-						<p className={pokemons.length > 0 ? '' : 'hide-result-title'}>
+						<p className={showResult > 0 ? 'show-result' : 'hide-result'}>
 							Result:
 						</p>
 					</section>
 					<section>
-						{showAllPokemon
-							? pokemons
-									.filter((pokemon) => {
-										return pokemon.pokemon.name.includes(searchPokemonByName);
-									})
-									.map((pokemon) => {
-										return (
-											<PokemonListCard
-												pokemonName={pokemon.pokemon.name}
-												key={pokemon.pokemon.url}
-												pokemonListCardClass='pokemon-list-card'
-												optionalClass={
-													catchedPokemons.includes(pokemon.pokemon.name)
-														? 'catched-pokemon-list-card'
-														: ''
-												}
-												clickOnPokemonListCard={handleClickOnPokemonListCard}
-											/>
-										);
-									})
-							: pokemons
-									.filter((pokemon) => {
-										return catchedPokemons.includes(pokemon.pokemon.name);
-									})
-									.filter((pokemon) => {
-										return pokemon.pokemon.name.includes(searchPokemonByName);
-									})
-									.map((pokemon) => {
-										return (
-											<PokemonListCard
-												pokemonName={pokemon.pokemon.name}
-												key={pokemon.pokemon.url}
-												pokemonListCardClass='pokemon-list-card'
-												optionalClass={
-													catchedPokemons.includes(pokemon.pokemon.name)
-														? 'catched-pokemon-list-card'
-														: ''
-												}
-												clickOnPokemonListCard={handleClickOnPokemonListCard}
-											/>
-										);
-									})}
+						<TransitionGroup>
+							{showAllPokemon
+								? pokemons
+										.filter((pokemon) => {
+											return pokemon.pokemon.name.includes(searchPokemonByName);
+										})
+										.map((pokemon) => {
+											return (
+												<CSSTransition
+													key={pokemon.pokemon.url}
+													timeout={700}
+													classNames='result'
+												>
+													<PokemonListCard
+														pokemonName={pokemon.pokemon.name}
+														key={pokemon.pokemon.url}
+														pokemonListCardClass='pokemon-list-card'
+														optionalClass={
+															catchedPokemons.includes(pokemon.pokemon.name)
+																? 'catched-pokemon-list-card'
+																: ''
+														}
+														clickOnPokemonListCard={
+															handleClickOnPokemonListCard
+														}
+													/>
+												</CSSTransition>
+											);
+										})
+								: pokemons
+										.filter((pokemon) => {
+											return catchedPokemons.includes(pokemon.pokemon.name);
+										})
+										.filter((pokemon) => {
+											return pokemon.pokemon.name.includes(searchPokemonByName);
+										})
+										.map((pokemon) => {
+											return (
+												<CSSTransition
+													key={pokemon.pokemon.url}
+													timeout={700}
+													classNames='result'
+												>
+													<PokemonListCard
+														pokemonName={pokemon.pokemon.name}
+														key={pokemon.pokemon.url}
+														pokemonListCardClass='pokemon-list-card'
+														optionalClass={
+															catchedPokemons.includes(pokemon.pokemon.name)
+																? 'catched-pokemon-list-card'
+																: ''
+														}
+														clickOnPokemonListCard={
+															handleClickOnPokemonListCard
+														}
+													/>
+												</CSSTransition>
+											);
+										})}
+						</TransitionGroup>
 					</section>
 				</main>
 			)}

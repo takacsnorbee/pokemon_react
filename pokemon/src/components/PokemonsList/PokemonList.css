@@ -74,13 +74,43 @@
   transform: translateY(0);
 }
 
-.hide-result-title {
-    visibility: hidden;
-    font-size: 1.1rem;
-}
-
 .pokemon-list-wrapper section:last-child {
     height: calc(100vh - 300px);
     min-height: 300px;
     overflow: auto;
 }
+
+.show-result {
+    opacity: 1;
+    visibility: visible;
+    transition: all 1.5s;
+}
+
+.hide-result {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* transition */
+
+.result-enter {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.result-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 1000ms, transform 1000ms;
+}
+
+.result-exit {
+    opacity: 1;
+}
+
+.result-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 1000ms, transform 1000ms;
+}
+
